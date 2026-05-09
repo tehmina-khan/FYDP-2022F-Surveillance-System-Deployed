@@ -1,0 +1,28 @@
+# IDE folders
+.vscode/
+.idea/
+
+best_model.pth
+*.pth
+
+# Node
+node_modules/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# ML Models
+*.pth
+
+# Dataset
+Dataset/
+datasets/
+
+# Build folders
+build/
+dist/
+
+# Environment files
+.env
