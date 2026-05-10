@@ -17,8 +17,8 @@
     "mongoose": "^8.2.0",
     "multer": "^2.1.1",
     "multer-storage-cloudinary": "^4.0.0",
-    "nodemailer": "^8.0.5",
     "pdfkit": "^0.18.0",
+    "resend": "^6.12.3",
     "twilio": "^5.13.1"
   },
   "devDependencies": {

@@ -1,123 +1,222 @@
-console.log("alerts.js loaded");
+const { Resend } = require("resend");
+const twilio = require("twilio");
+const User = require("../models/User");
 
-const nodemailer = require("nodemailer");
-const twilio     = require("twilio");
-const User       = require("../models/User");
+// ── Resend client ──────────────────────────────────────────────────────────
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// const transporter = nodemailer.createTransport({
-//   host: "smtp.gmail.com",
-//   port: 587,
-//   secure: false, // TLS
-//   family: 4,     // FORCE IPv4
-//   auth: {
-//     user: process.env.EMAIL_USER,
-//     pass: process.env.EMAIL_PASS,
-//   },
-// });
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
+// ── Twilio client ──────────────────────────────────────────────────────────
 const twilioClient = twilio(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
 );
 
-// ── Send email ─────────────────────────────────────────────────────────────
+// ── Send email via Resend ──────────────────────────────────────────────────
 async function sendEmailAlert(incident, recipientEmail) {
-  const incidentUrl    = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
-  const streamableVideo = incident.video_url
-    ? incident.video_url.replace("/upload/", "/upload/f_mp4,vc_auto/")
-    : null;
+  try {
+    console.log(`\n[EMAIL] Preparing email for ${recipientEmail}`);
 
-  await transporter.sendMail({
-    from:    `"CCTV Alert System" <${process.env.EMAIL_USER}>`,
-    to:      recipientEmail,
-    subject: "🚨 Violence Detected - CCTV Alert",
-    html: `
-      <h2 style="color:red;">⚠️ Violence Detected</h2>
-      <table style="font-size:15px; border-collapse:collapse;">
-        <tr><td><b>Camera</b></td><td>${incident.camera_id}</td></tr>
-        <tr><td><b>Time</b></td><td>${new Date(incident.timestamp).toLocaleString()}</td></tr>
-        <tr><td><b>Probability</b></td><td>${(incident.probability * 100).toFixed(1)}%</td></tr>
-      </table>
+    const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
 
-      ${incident.image_url ? `
-        <br/>
-        <img src="${incident.image_url}" width="400"
-             style="border-radius:8px; margin:10px 0;"
-             alt="Incident snapshot"/>
-      ` : ""}
+    const streamableVideo = incident.video_url
+      ? incident.video_url.replace("/upload/", "/upload/f_mp4,vc_auto/")
+      : null;
 
-      <br/>
-      <a href="${incidentUrl}" style="background:red;color:white;
-        padding:10px 20px;text-decoration:none;border-radius:5px;
-        font-size:15px;display:inline-block;margin-right:10px;">
-        View Incident
-      </a>
+    // IMPORTANT:
+    // Use onboarding@resend.dev for testing first
+    // Custom emails require verified domain in Resend
+    const response = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: recipientEmail,
+      subject: "🚨 Violence Detected - CCTV Alert",
 
-      ${streamableVideo ? `
-        <a href="${streamableVideo}" style="background:#333;color:white;
-          padding:10px 20px;text-decoration:none;border-radius:5px;
-          font-size:15px;display:inline-block;">
-          Watch Video
-        </a>
-      ` : ""}
-    `,
-  });
+      html: `
+        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;
+          background:#0f1318;color:#dde3ee;border-radius:12px;
+          overflow:hidden;">
 
-  console.log(`  [EMAIL] Alert sent to ${recipientEmail}`);
+          <!-- Header -->
+          <div style="background:#e63946;padding:24px;text-align:center;">
+            <h1 style="margin:0;font-size:20px;color:#fff;
+              letter-spacing:2px;">
+              ⚠ VIOLENCE DETECTED
+            </h1>
+            <p style="margin:6px 0 0;color:rgba(255,255,255,0.8);
+              font-size:13px;">
+              CCTV Sentinel — AI Surveillance Alert
+            </p>
+          </div>
+
+          <!-- Body -->
+          <div style="padding:28px;">
+
+            <!-- Snapshot -->
+            ${incident.image_url ? `
+              <img src="${incident.image_url}"
+                style="width:100%;border-radius:8px;
+                  margin-bottom:20px;display:block;"
+                alt="Incident snapshot"/>
+            ` : ""}
+
+            <!-- Details table -->
+            <table style="width:100%;border-collapse:collapse;
+              margin-bottom:24px;">
+
+              ${[
+                ["Camera", incident.camera_id],
+                ["Time", new Date(incident.timestamp).toLocaleString()],
+                ["Confidence", `${(incident.probability * 100).toFixed(1)}%`],
+                ["Status", incident.status || "unreviewed"],
+              ]
+                .map(
+                  ([label, value]) => `
+                  <tr>
+                    <td style="padding:10px 12px;background:#1a1f28;
+                      color:#8a96aa;font-size:12px;
+                      border-bottom:1px solid #2a2f3a;
+                      width:120px;">
+                      ${label}
+                    </td>
+
+                    <td style="padding:10px 12px;background:#1a1f28;
+                      color:#dde3ee;font-size:13px;
+                      border-bottom:1px solid #2a2f3a;">
+                      ${value}
+                    </td>
+                  </tr>
+                `
+                )
+                .join("")}
+            </table>
+
+            <!-- Buttons -->
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+
+              <a href="${incidentUrl}"
+                style="background:#e63946;color:#fff;
+                  padding:12px 24px;border-radius:8px;
+                  text-decoration:none;font-size:14px;
+                  font-weight:600;display:inline-block;">
+                View Incident
+              </a>
+
+              ${streamableVideo ? `
+                <a href="${streamableVideo}"
+                  style="background:#1a1f28;color:#dde3ee;
+                    padding:12px 24px;border-radius:8px;
+                    text-decoration:none;font-size:14px;
+                    border:1px solid #2a2f3a;
+                    display:inline-block;">
+                  Watch Video
+                </a>
+              ` : ""}
+
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div style="padding:16px 28px;border-top:1px solid #2a2f3a;
+            text-align:center;">
+
+            <p style="margin:0;font-size:11px;color:#5a6478;">
+              CCTV Sentinel — AI-Based Violence Detection System
+            </p>
+
+          </div>
+
+        </div>
+      `,
+    });
+
+    console.log("[EMAIL] Resend response:", response);
+
+    if (response.error) {
+      console.error("[EMAIL ERROR]", response.error);
+    } else {
+      console.log(`[EMAIL] Successfully sent to ${recipientEmail}`);
+    }
+
+  } catch (err) {
+    console.error(`[EMAIL FAILED] ${recipientEmail}`);
+    console.error(err);
+  }
 }
 
-// ── Send SMS ───────────────────────────────────────────────────────────────
+// ── Send SMS via Twilio ────────────────────────────────────────────────────
 async function sendSMSAlert(incident) {
-  const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
+  try {
+    console.log("[SMS] Sending SMS alert...");
 
-  await twilioClient.messages.create({
-    from: process.env.TWILIO_FROM,
-    to:   process.env.TWILIO_TO,
-    body: `🚨 CCTV ALERT: Violence detected on ${incident.camera_id} at ${new Date(incident.timestamp).toLocaleString()}. Confidence: ${(incident.probability * 100).toFixed(1)}%. View: ${incidentUrl}`,
-  });
+    const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
 
-  console.log(`  [SMS] Alert sent to ${process.env.TWILIO_TO}`);
+    const response = await twilioClient.messages.create({
+      from: process.env.TWILIO_FROM,
+      to: process.env.TWILIO_TO,
+
+      body:
+        `🚨 CCTV ALERT: Violence detected on ${incident.camera_id} at ` +
+        `${new Date(incident.timestamp).toLocaleString()}. ` +
+        `Confidence: ${(incident.probability * 100).toFixed(1)}%. ` +
+        `View: ${incidentUrl}`,
+    });
+
+    console.log("[SMS] Sent successfully:", response.sid);
+
+  } catch (err) {
+    console.error("[SMS FAILED]");
+    console.error(err.message);
+  }
 }
 
 // ── Send alerts to all opted-in users ─────────────────────────────────────
 async function sendAlerts(incident) {
   try {
-    // Fetch all users who have alerts enabled
-    const alertUsers = await User.find({ receiveAlerts: true }).select("email");
+    console.log("\n========== ALERT SYSTEM START ==========");
+
+    // Check API key
+    if (!process.env.RESEND_API_KEY) {
+      console.error("[EMAIL] RESEND_API_KEY missing in .env");
+      return;
+    }
+
+    console.log("[EMAIL] Fetching users with alerts enabled...");
+
+    // Email — all users with receiveAlerts: true
+    const alertUsers = await User.find({
+      receiveAlerts: true,
+    }).select("email");
+
+    console.log(`[EMAIL] Users found: ${alertUsers.length}`);
 
     if (alertUsers.length === 0) {
-      console.log("  [ALERTS] No users have alerts enabled — skipping email");
+      console.log("[EMAIL] No users have alerts enabled");
     } else {
-      // Send email to every opted-in user
-      const emailPromises = alertUsers.map(u => sendEmailAlert(incident, u.email));
-      const emailResults  = await Promise.allSettled(emailPromises);
+      const emailResults = await Promise.allSettled(
+        alertUsers.map((u) =>
+          sendEmailAlert(incident, u.email)
+        )
+      );
 
       emailResults.forEach((result, i) => {
         if (result.status === "rejected") {
-          console.error(`  [EMAIL] Failed for ${alertUsers[i].email}:`, result.reason.message);
+          console.error(
+            `[EMAIL FAILED] ${alertUsers[i].email}`
+          );
+
+          console.error(result.reason);
         }
       });
     }
 
-    // SMS always goes to the number in .env (Twilio free tier limitation)
-    try {
+    // SMS
     await sendSMSAlert(incident);
-  } catch(err) {
-    console.error("[SMS] Failed:", err.message);
-  }
+
+    console.log("=========== ALERT SYSTEM END ===========\n");
 
   } catch (err) {
-    console.error("[ALERTS] Unexpected error:", err.message);
+    console.error("[ALERTS SYSTEM ERROR]");
+    console.error(err);
   }
 }
 
