@@ -7,7 +7,14 @@ const path     = require("path");
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    "https://your-app.netlify.app"
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // ── Static files ───────────────────────────────────────────────────────────
