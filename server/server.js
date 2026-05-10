@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://your-app.netlify.app"
+    "https://ai-powered-surveillance-system.netlify.app"
   ],
   credentials: true
 }));
