@@ -26,3 +26,11 @@ dist/
 
 # Environment files
 .env
+
+# To stop incidnets uploading on git
+incidents/
+uploads/
+*.avi
+*.mp4
+*.jpg
+*.png
