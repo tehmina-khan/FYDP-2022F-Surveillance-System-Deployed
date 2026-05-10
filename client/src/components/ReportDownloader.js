@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const BASE = "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app";    // ← full URL, no proxy needed
+
 export default function ReportDownloader() {
   const today     = new Date().toISOString().split('T')[0];
   const [from,    setFrom]    = useState(today);
@@ -22,7 +24,7 @@ export default function ReportDownloader() {
     try {
       const token = localStorage.getItem('cctv_token');
       const res   = await fetch(
-        `http://localhost:5000/api/incidents/report?from=${from}&to=${to}`,
+        `${BASE}/api/incidents/report?from=${from}&to=${to}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

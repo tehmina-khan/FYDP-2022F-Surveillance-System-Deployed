@@ -1,4 +1,4 @@
-const BASE = "http://localhost:5000";    // ← full URL, no proxy needed
+const BASE = "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app";    // ← full URL, no proxy needed
 
 export async function apiFetch(path, options = {}) {
   const token = localStorage.getItem("cctv_token");

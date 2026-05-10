@@ -11,7 +11,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app",
   "browserslist": {
     "production": [
       ">0.2%",

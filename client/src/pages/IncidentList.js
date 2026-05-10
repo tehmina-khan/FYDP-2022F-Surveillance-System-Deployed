@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { apiFetch } from '../api';
 import ReportDownloader from '../components/ReportDownloader';
 
+const BASE = "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app";    // ← full URL, no proxy needed
+
 export default function IncidentList() {
   const [incidents, setIncidents] = useState([]);
   const [loading,   setLoading]   = useState(true);
@@ -10,7 +12,7 @@ export default function IncidentList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/incidents', {
+    fetch(`${BASE}/api/incidents`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('cctv_token')}`,
       },

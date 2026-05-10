@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { apiFetch } from '../api';
 import { useAuth } from '../context/AuthContext';
 
+const BASE = "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app";    // ← full URL, no proxy needed
+
 const s = {
   section: {
     background:   'var(--card)',
@@ -172,7 +174,7 @@ export default function Profile() {
       fd.append('phoneNumber', form.phoneNumber);
       if (imgFile) fd.append('profilePicture', imgFile);
 
-      const res  = await fetch('http://localhost:5000/api/users/profile', {
+      const res  = await fetch(`${BASE}/api/users/profile`, {
         method:  'PUT',
         headers: { Authorization: `Bearer ${localStorage.getItem('cctv_token')}` },
         body:    fd,

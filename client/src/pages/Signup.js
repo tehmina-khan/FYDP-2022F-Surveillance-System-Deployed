@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const BASE = "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app";    // ← full URL, no proxy needed
+
 export default function Signup() {
   const [form, setForm]       = useState({ name: '', email: '', password: '', confirm: '' });
   const [error, setError]     = useState('');
@@ -25,7 +27,7 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      const res  = await fetch('http://localhost:5000/api/auth/signup', {
+      const res  = await fetch(`${BASE}/api/auth/signup`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({

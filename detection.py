@@ -13,7 +13,7 @@ def post_incident_to_api(camera_id: str, probability: float,
                           video_path: str, image_path: str) -> None:
     try:
         response = requests.post(
-            "http://localhost:5000/api/incidents",
+            "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app/api/incidents",
             json={
                 "camera_id":   camera_id,
                 "probability": round(float(probability), 4),  # ← float() wraps numpy float32
@@ -106,7 +106,7 @@ def save_incident(rolling_buffer, fps, frame_size, avg_probs):
         _saving_lock.release()
 
 # ── API Config ────────────────────────────────────────────────────────────────
-API_BASE     = "http://localhost:5000"
+API_BASE     = "https://fydp-2022f-surveillance-system-deployed-production.up.railway.app"
 API_USERNAME = "admin@cctv.com"    # ← must be the full email, not just "admin"
 API_PASSWORD = "admin1234"
 API_TOKEN    = None
