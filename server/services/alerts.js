@@ -2,8 +2,6 @@ const nodemailer = require("nodemailer");
 const twilio     = require("twilio");
 const User       = require("../models/User");
 
-const nodemailer = require("nodemailer");
-
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
