@@ -1,3 +1,5 @@
+console.log("alerts.js loaded");
+
 const nodemailer = require("nodemailer");
 const twilio     = require("twilio");
 const User       = require("../models/User");
