@@ -150,6 +150,9 @@ async function sendSMSAlert(incident) {
 
     const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
 
+        console.log("[DEBUG USERS]", await User.find({ receiveAlerts: true }));
+
+
     // Get all users with phone numbers + alerts enabled
     const smsUsers = await User.find({
       receiveAlerts: true,
