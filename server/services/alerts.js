@@ -151,7 +151,7 @@ async function sendSMSAlert(incident) {
     const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
 
     const response = await twilioClient.messages.create({
-      from: process.env.TWILIO_FROM,
+      from: process.env.TWILIO_PHONE_NUMBER,
       to: process.env.TWILIO_TO,
 
       body:
