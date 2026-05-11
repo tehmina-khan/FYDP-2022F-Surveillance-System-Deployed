@@ -187,6 +187,8 @@ async function sendAlerts(incident) {
       receiveAlerts: true,
     }).select("email");
 
+    console.log("[EMAIL] Users list:", alertUsers);
+
     console.log(`[EMAIL] Users found: ${alertUsers.length}`);
 
     if (alertUsers.length === 0) {
