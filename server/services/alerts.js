@@ -90,11 +90,11 @@ async function sendEmailAlert(incident, recipientEmail) {
             </table>
 
             <!-- Buttons -->
-            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <div style="display:flex;gap:20px;flex-wrap:wrap;">
 
               <a href="${incidentUrl}"
                 style="background:#e63946;color:#fff;
-                  padding:12px 24px;border-radius:8px;
+                  padding:8px 16px;border-radius:8px;
                   text-decoration:none;font-size:14px;
                   font-weight:600;display:inline-block;">
                 View Incident
@@ -103,7 +103,7 @@ async function sendEmailAlert(incident, recipientEmail) {
               ${streamableVideo ? `
                 <a href="${streamableVideo}"
                   style="background:#1a1f28;color:#dde3ee;
-                    padding:12px 24px;border-radius:8px;
+                    padding:8px 16px;border-radius:8px;
                     text-decoration:none;font-size:14px;
                     border:1px solid #2a2f3a;
                     display:inline-block;">
