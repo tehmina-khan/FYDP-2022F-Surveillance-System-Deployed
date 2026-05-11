@@ -148,42 +148,36 @@ async function sendSMSAlert(incident) {
   try {
     console.log("[SMS] Sending SMS alerts...");
 
-    const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
-
-        console.log("[DEBUG USERS]", await User.find({ receiveAlerts: true }));
-
-
-    // Get all users with phone numbers + alerts enabled
     const smsUsers = await User.find({
-    receiveAlerts: true,
-    phoneNumber: { $exists: true, $ne: "" }
-  }).select("phoneNumber");
+      receiveAlerts: true,
+      phoneNumber: { $exists: true, $ne: "" }
+    }).select("phoneNumber");
 
-  console.log(`[SMS] Users found: ${smsUsers.length}`);
+    console.log(`[SMS] Users found: ${smsUsers.length}`);
 
-  if (smsUsers.length === 0) {
-    console.log("[SMS] No users found for SMS alerts");
-    return;
-  }
+    if (smsUsers.length === 0) {
+      console.log("[SMS] No users found for SMS alerts");
+      return;
+    }
 
-  await Promise.allSettled(
-    smsUsers.map((u) =>
-      twilioClient.messages.create({
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: u.phoneNumber,
-        body: `ALERT: Violence detected on ${incident.camera_id}. Check dashboard.`
-      })
-    )
-  );
+    const smsResults = await Promise.allSettled(
+      smsUsers.map((u) =>
+        twilioClient.messages.create({
+          from: process.env.TWILIO_PHONE_NUMBER,
+          to: u.phoneNumber,
+          body: `ALERT: Violence detected on ${incident.camera_id}. Check dashboard.`
+        })
+      )
+    );
 
     smsResults.forEach((result, i) => {
       if (result.status === "rejected") {
-        console.error(`[SMS FAILED] ${smsUsers[i].phone}`);
+        console.error(`[SMS FAILED] ${smsUsers[i].phoneNumber}`);
         console.error(result.reason?.message || result.reason);
       }
     });
 
-    console.log("[SMS] Alerts sent process completed");
+    console.log("[SMS] Alerts processed successfully");
 
   } catch (err) {
     console.error("[SMS FAILED]");
