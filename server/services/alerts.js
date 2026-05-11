@@ -146,19 +146,43 @@ async function sendEmailAlert(incident, recipientEmail) {
 // ── Send SMS via Twilio ────────────────────────────────────────────────────
 async function sendSMSAlert(incident) {
   try {
-    console.log("[SMS] Sending SMS alert...");
+    console.log("[SMS] Sending SMS alerts...");
 
     const incidentUrl = `${process.env.FRONTEND_URL}/incident/${incident._id}`;
 
-    const response = await twilioClient.messages.create({
-      from: process.env.TWILIO_PHONE_NUMBER,
-      to: process.env.TWILIO_TO,
+    // Get all users with phone numbers + alerts enabled
+    const smsUsers = await User.find({
+      receiveAlerts: true,
+      phone: { $exists: true, $ne: "" }
+    }).select("phone");
 
-      body:
-        `ALERT: Violence detected on ${incident.camera_id}. Check dashboard.`,
-      });
+    console.log(`[SMS] Users found: ${smsUsers.length}`);
 
-    console.log("[SMS] Sent successfully:", response.sid);
+    if (smsUsers.length === 0) {
+      console.log("[SMS] No users found for SMS alerts");
+      return;
+    }
+
+    const smsResults = await Promise.allSettled(
+      smsUsers.map((u) =>
+        twilioClient.messages.create({
+          from: process.env.TWILIO_PHONE_NUMBER,
+          to: u.phone,
+
+          body:
+            `ALERT: Violence detected on ${incident.camera_id}. Check dashboard: ${incidentUrl}`
+        })
+      )
+    );
+
+    smsResults.forEach((result, i) => {
+      if (result.status === "rejected") {
+        console.error(`[SMS FAILED] ${smsUsers[i].phone}`);
+        console.error(result.reason?.message || result.reason);
+      }
+    });
+
+    console.log("[SMS] Alerts sent process completed");
 
   } catch (err) {
     console.error("[SMS FAILED]");
