@@ -155,11 +155,8 @@ async function sendSMSAlert(incident) {
       to: process.env.TWILIO_TO,
 
       body:
-        `🚨 CCTV ALERT: Violence detected on ${incident.camera_id} at ` +
-        `${new Date(incident.timestamp).toLocaleString()}. ` +
-        `Confidence: ${(incident.probability * 100).toFixed(1)}%. ` +
-        `View: ${incidentUrl}`,
-    });
+        `ALERT: Violence detected on ${incident.camera_id}. Check dashboard.`,
+      });
 
     console.log("[SMS] Sent successfully:", response.sid);
 
