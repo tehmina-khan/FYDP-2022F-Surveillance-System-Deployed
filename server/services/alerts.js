@@ -43,7 +43,7 @@ async function sendEmailAlert(incident, recipientEmail) {
             </h1>
             <p style="margin:6px 0 0;color:rgba(255,255,255,0.8);
               font-size:13px;">
-              CCTV Sentinel — AI Surveillance Alert
+              CCTV — AI Surveillance Alert
             </p>
           </div>
 
