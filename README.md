@@ -348,9 +348,9 @@ FYDP-2022F-Surveillance-System-Deployed/
 ## Deployment
 
 | Service | Platform | URL |
-
+|---------|----------|-----|
 | Frontend | Netlify | https://ai-powered-surveillance-system.netlify.app |
-| Backend | Railway | ------------ |
+| Backend | Railway | https://railway.com |
 | Database | MongoDB Atlas | Cloud hosted |
 | Media Storage | Cloudinary | Cloud hosted |
 | ML Script | Local machine / Lab PC | Runs locally |
