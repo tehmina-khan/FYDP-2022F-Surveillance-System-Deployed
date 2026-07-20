@@ -3,57 +3,57 @@ import Navbar from '../components/Navbar';
 
 const s = {
   page: {
-    background: '#080b10',
-    minHeight: '100vh',
-    color: '#dde3ee',
-    fontFamily: "'Barlow', sans-serif",
+    background: 'var(--bg)',
+    minHeight:  '100vh',
+    color:      'var(--text)',
+    fontFamily: 'var(--sans)',
   },
   wrap: {
-    maxWidth: 680,
-    margin: '0 auto',
-    padding: '120px 2rem 5rem',
+    maxWidth: 600,
+    margin:   '0 auto',
+    padding:  '120px 2rem 5rem',
   },
   eyebrow: {
-    fontFamily: 'monospace',
-    fontSize: 11,
-    color: '#e63946',
+    fontFamily:    'var(--mono)',
+    fontSize:      11,
+    color:         'var(--red)',
     letterSpacing: 3,
     textTransform: 'uppercase',
-    marginBottom: '1rem',
+    marginBottom:  '1rem',
   },
   h1: {
-    fontSize: 'clamp(2rem, 5vw, 2.8rem)',
-    fontWeight: 700,
-    lineHeight: 1.2,
+    fontSize:     'clamp(2rem, 5vw, 2.8rem)',
+    fontWeight:   700,
     marginBottom: '0.75rem',
+    color:        'var(--text)',
   },
   subtitle: {
-    fontSize: 15,
-    color: '#5a6478',
-    lineHeight: 1.75,
+    fontSize:     15,
+    color:        'var(--muted)',
+    lineHeight:   1.75,
     marginBottom: '2.5rem',
   },
   label: {
-    display: 'block',
-    fontSize: 11,
-    color: '#5a6478',
-    fontFamily: 'monospace',
+    display:       'block',
+    fontSize:      11,
+    color:         'var(--muted)',
+    fontFamily:    'var(--mono)',
     letterSpacing: 1,
     textTransform: 'uppercase',
-    marginBottom: 7,
+    marginBottom:  7,
   },
   input: {
-    width: '100%',
-    background: '#0f1318',
-    border: '1px solid #1e2530',
+    width:        '100%',
+    background:   'var(--surface)',
+    border:       '1px solid var(--border)',
     borderRadius: 8,
-    padding: '12px 16px',
-    color: '#dde3ee',
-    fontSize: 14,
-    fontFamily: "'Barlow', sans-serif",
-    outline: 'none',
-    transition: 'border-color 0.2s',
-    display: 'block',
+    padding:      '12px 16px',
+    color:        'var(--text)',
+    fontSize:     14,
+    fontFamily:   'var(--sans)',
+    outline:      'none',
+    transition:   'border-color 0.2s',
+    display:      'block',
   },
 };
 
@@ -100,56 +100,56 @@ export default function Contact() {
       <div style={s.page}>
         <Navbar />
         <div style={s.wrap}>
+          // Success box
+        <div style={{
+          background:   'var(--surface)',
+          border:       '1px solid var(--border)',
+          borderRadius: 12,
+          padding:      '3rem 2rem',
+          textAlign:    'center',
+          marginTop:    '2rem',
+          boxShadow:    '0 2px 12px rgba(0,0,0,0.06)',
+        }}>
           <div style={{
-            background: '#0f1318',
-            border: '1px solid #1e2530',
-            borderRadius: 12,
-            padding: '3rem 2rem',
-            textAlign: 'center',
-            marginTop: '2rem',
-          }}>
-            <div style={{
-              width: 56, height: 56,
-              borderRadius: '50%',
-              background: 'rgba(46,196,182,0.1)',
-              border: '1px solid rgba(46,196,182,0.3)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1.25rem',
-              fontSize: 22,
-              color: '#2ec4b6',
-            }}>
-              ✓
-            </div>
-            <h2 style={{ fontSize: 20, fontWeight: 700,
-              color: '#dde3ee', marginBottom: 8 }}>
-              Message Sent
-            </h2>
-            <p style={{ color: '#5a6478', fontSize: 14,
-              lineHeight: 1.7, marginBottom: '1.75rem' }}>
-              Thank you for reaching out.<br />
-              We will get back to you shortly.
-            </p>
-            <button
-              onClick={() => { setSubmitted(false); setForm({ name: '', email: '', message: '' }); }}
-              style={{
-                background: 'none',
-                border: '1px solid #1e2530',
-                borderRadius: 8,
-                padding: '10px 22px',
-                color: '#5a6478',
-                fontSize: 13,
-                cursor: 'pointer',
-                fontFamily: "'Barlow', sans-serif",
-                transition: 'color 0.2s, border-color 0.2s',
-              }}
-              onMouseOver={e => { e.target.style.color = '#dde3ee'; e.target.style.borderColor = '#3a4155'; }}
-              onMouseOut={e => { e.target.style.color = '#5a6478'; e.target.style.borderColor = '#1e2530'; }}
-            >
-              Send another message
-            </button>
-          </div>
+            width:          56, height: 56,
+            borderRadius:   '50%',
+            background:     'rgba(46,196,182,0.1)',
+            border:         '1px solid rgba(46,196,182,0.3)',
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            margin:         '0 auto 1.25rem',
+            fontSize:       22,
+            color:          'var(--green)',
+          }}>✓</div>
+          <h2 style={{ fontSize: 20, fontWeight: 700,
+            color: 'var(--text)', marginBottom: 8 }}>
+            Message Sent
+          </h2>
+          <p style={{ color: 'var(--muted)', fontSize: 14,
+            lineHeight: 1.7, marginBottom: '1.75rem' }}>
+            Thank you for reaching out.
+            We will get back to you shortly.
+          </p>
+          <button
+            onClick={() => {
+              setSubmitted(false);
+              setForm({ name: '', email: '', message: '' });
+            }}
+            style={{
+              background:   'none',
+              border:       '1px solid var(--border)',
+              borderRadius: 8,
+              padding:      '10px 22px',
+              color:        'var(--muted)',
+              fontSize:     13,
+              cursor:       'pointer',
+              fontFamily:   'var(--sans)',
+            }}
+          >
+            Send another message
+          </button>
+        </div>
         </div>
       </div>
     );

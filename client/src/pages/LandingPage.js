@@ -42,12 +42,12 @@ export default function LandingPage() {
 
           <div className="hero-stats">
             <div className="stat">
-              <span className="stat-num">99%</span>
+              <span className="stat-num">97%</span>
               <span className="stat-lbl">Detection Accuracy</span>
             </div>
             <div className="stat-divider" />
             <div className="stat">
-              <span className="stat-num">&lt;1s</span>
+              <span className="stat-num">&lt;5s</span>
               <span className="stat-lbl">Response Time</span>
             </div>
             <div className="stat-divider" />
@@ -76,7 +76,7 @@ export default function LandingPage() {
           <div className="detection-box">
             <div className="det-corner tl" /><div className="det-corner tr" />
             <div className="det-corner bl" /><div className="det-corner br" />
-            <span className="det-label">Target Identified</span>
+            <span className="det-label">Anomaly Detected</span>
           </div>
         </div>
 

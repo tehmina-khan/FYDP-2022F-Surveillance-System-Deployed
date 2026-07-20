@@ -37,3 +37,8 @@ uploads/
 
 # IMPORTANT LINKS
 Important-Links.docx
+
+
+detectionCNN.py
+detectionConfusedME.py
+detectionCapturingWalk.py

@@ -3,99 +3,103 @@ import Navbar from '../components/Navbar';
 
 const s = {
   page: {
-    background: '#080b10',
-    minHeight: '100vh',
-    color: '#dde3ee',
-    fontFamily: "'Barlow', sans-serif",
+    background: 'var(--bg)',
+    minHeight:  '100vh',
+    color:      'var(--text)',
+    fontFamily: 'var(--sans)',
   },
   wrap: {
     maxWidth: 860,
-    margin: '0 auto',
-    padding: '120px 2rem 5rem',
+    margin:   '0 auto',
+    padding:  '120px 2rem 5rem',
   },
   eyebrow: {
-    fontFamily: 'monospace',
-    fontSize: 11,
-    color: '#e63946',
+    fontFamily:    'var(--mono)',
+    fontSize:      11,
+    color:         'var(--red)',
     letterSpacing: 3,
     textTransform: 'uppercase',
-    marginBottom: '1rem',
+    marginBottom:  '1rem',
   },
   h1: {
-    fontSize: 'clamp(2rem, 5vw, 2.8rem)',
-    fontWeight: 700,
-    lineHeight: 1.2,
+    fontSize:     'clamp(2rem, 5vw, 2.8rem)',
+    fontWeight:   700,
+    lineHeight:   1.2,
     marginBottom: '1.25rem',
+    color:        'var(--text)',
   },
-  accent: { color: '#e63946' },
+  accent: { color: 'var(--red)' },
   lead: {
-    fontSize: 16,
-    lineHeight: 1.85,
-    color: '#7a8599',
-    maxWidth: 680,
+    fontSize:     16,
+    lineHeight:   1.85,
+    color:        'var(--muted)',
+    maxWidth:     680,
     marginBottom: '3.5rem',
   },
   divider: {
-    border: 'none',
-    borderTop: '1px solid #1e2530',
-    margin: '3rem 0',
+    border:    'none',
+    borderTop: '1px solid var(--border)',
+    margin:    '3rem 0',
   },
   h2: {
-    fontSize: 18,
-    fontWeight: 600,
-    color: '#dde3ee',
+    fontSize:     18,
+    fontWeight:   600,
+    color:        'var(--text)',
     marginBottom: '1.5rem',
   },
   grid3: {
-    display: 'grid',
+    display:             'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-    gap: '1rem',
-    marginBottom: '3.5rem',
+    gap:                 '1rem',
+    marginBottom:        '3.5rem',
   },
   card: {
-    background: '#0f1318',
-    border: '1px solid #1e2530',
+    background:   'var(--surface)',
+    border:       '1px solid var(--border)',
     borderRadius: 10,
-    padding: '1.5rem',
+    padding:      '1.5rem',
+    boxShadow:    '0 2px 8px rgba(0,0,0,0.04)',
   },
   cardIcon: {
-    fontSize: 22,
+    fontSize:     22,
     marginBottom: '0.75rem',
-    display: 'block',
+    display:      'block',
+    color:        'var(--red)',
   },
   cardTitle: {
-    fontSize: 14,
-    fontWeight: 600,
-    color: '#dde3ee',
+    fontSize:     14,
+    fontWeight:   600,
+    color:        'var(--text)',
     marginBottom: 6,
   },
   cardDesc: {
-    fontSize: 13,
-    color: '#5a6478',
+    fontSize:   13,
+    color:      'var(--muted)',
     lineHeight: 1.7,
   },
   stackGrid: {
-    display: 'grid',
+    display:             'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-    gap: '0.75rem',
+    gap:                 '0.75rem',
   },
   stackCard: {
-    background: '#0f1318',
-    border: '1px solid #1e2530',
+    background:   'var(--surface)',
+    border:       '1px solid var(--border)',
     borderRadius: 8,
-    padding: '1rem 1.25rem',
+    padding:      '1rem 1.25rem',
+    boxShadow:    '0 2px 8px rgba(0,0,0,0.04)',
   },
   stackLayer: {
-    fontSize: 10,
-    color: '#5a6478',
-    fontFamily: 'monospace',
+    fontSize:      10,
+    color:         'var(--muted)',
+    fontFamily:    'var(--mono)',
     letterSpacing: 1,
     textTransform: 'uppercase',
-    marginBottom: 5,
+    marginBottom:  5,
   },
   stackTech: {
-    fontSize: 13,
-    color: '#dde3ee',
+    fontSize:   13,
+    color:      'var(--text)',
     fontWeight: 500,
   },
 };
@@ -200,21 +204,21 @@ export default function About() {
               borderBottom: i < 3 ? '1px solid #1e2530' : 'none',
               marginBottom: i < 3 ? '1.75rem' : 0,
             }}>
-              <div style={{
-                fontFamily: 'monospace',
-                fontSize: 13,
-                color: '#e63946',
-                minWidth: 28,
-                paddingTop: 2,
-              }}>
+            <div style={{
+              fontFamily: 'var(--mono)',
+              fontSize:   13,
+              color:      'var(--red)',
+              minWidth:   28,
+              paddingTop: 2,
+            }}>
                 {item.step}
               </div>
               <div>
                 <div style={{ fontSize: 15, fontWeight: 600,
-                  color: '#dde3ee', marginBottom: 5 }}>
+                  color: 'var(--text)', marginBottom: 5 }}> 
                   {item.title}
                 </div>
-                <div style={{ fontSize: 14, color: '#5a6478',
+                <div style={{ fontSize: 14, color: 'var(--muted)',  
                   lineHeight: 1.7 }}>
                   {item.desc}
                 </div>

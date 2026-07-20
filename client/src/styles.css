@@ -34,6 +34,22 @@
   --sans:      'Barlow', sans-serif;
 }
 
+/* ── Global CSS variables — available on every page ── */
+/* :root {
+  --bg:       #080b10;
+  --surface:  #13171e;
+  --card:     #1a1f28;
+  --border:   #2a2f3a;
+  --red:      #e63946;
+  --red-dim:  #7a1a20;
+  --amber:    #f4a261;
+  --green:    #2ec4b6;
+  --text:     #e8eaf0;
+  --muted:    #6b7280;
+  --mono:     'Share Tech Mono', monospace;
+  --sans:     'Barlow', sans-serif;
+} */
+
 body {
   background: var(--bg);
   color: var(--text);
