@@ -2,6 +2,7 @@
 
 > A real-time AI surveillance system that automatically detects violent activity from live camera feeds, saves incident evidence to the cloud, and instantly alerts security teams via email and SMS.
 
+---
 
 ## 📸 Screenshots of the Web Application
 ![Logo](assets/1.png)
@@ -19,6 +20,8 @@
 ![Logo](assets/13.png)
 ![Logo](assets/14.png)
 ![Logo](assets/15.png)
+
+---
 
 ## 📌 Table of Contents
 
@@ -41,7 +44,7 @@
 
 ## Overview
 
-CCTV Sentinel is a Final Year Project (FYP) that addresses a critical limitation of traditional surveillance systems — the need for humans to watch hours of CCTV footage continuously. This system replaces that with an AI model that monitors live camera feeds automatically, detects violence in real time, and notifies the right people instantly.
+AI-Powered Surveillance System for Anomaly Detection is a Final Year Project (FYP) that addresses a critical limitation of traditional surveillance systems — the need for humans to watch hours of CCTV footage continuously. This system replaces that with an AI model that monitors live camera feeds automatically, detects violence in real time, and notifies the right people instantly.
 
 When violence is detected, the system:
 - Saves a video clip and snapshot of the incident
@@ -56,7 +59,7 @@ When violence is detected, the system:
 ## Features
 
 ### 🤖 AI Detection
-- Real-time violence detection using a **3D Convolutional Neural Network (R3D-18)**
+- Real-time violence detection using a **TimesFormer Model**
 - Trained on 24-frame sliding window clips at 112×112 resolution
 - Motion detection pre-filter to skip idle scenes and save compute
 - Probability smoothing over 8 consecutive clips to reduce false positives
@@ -83,7 +86,7 @@ When violence is detected, the system:
 - Email alerts via **Resend** with incident snapshot embedded in HTML email
 - SMS alerts via **Twilio**
 - Alerts sent to all users who have `receiveAlerts: true`
-- Email includes direct link to incident dashboard page
+- Email includes direct link to incident dashboard page, incident clip and snapshot
 
 ### ☁️ Cloud Storage
 - All videos and images uploaded to **Cloudinary** automatically
