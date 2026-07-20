@@ -355,6 +355,8 @@ FYDP-2022F-Surveillance-System-Deployed/
 | Media Storage | Cloudinary | Cloud hosted |
 | ML Script | Local machine / Lab PC | Runs locally |
 
+---
+
 ### Deploy your own
 
 **Backend on Railway:**
