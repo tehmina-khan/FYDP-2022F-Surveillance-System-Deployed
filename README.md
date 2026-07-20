@@ -6,13 +6,13 @@
 ## 📸 Screenshots of the Web Application
 
 <p align="center">
-  <img src="assets/1.png" alt="App Dashboard Preview" width="600">
+  <img src="assets/First.png" alt="App Dashboard Preview" width="600">
 </p>
 <p align="center">
-  <img src="assets/2.png" alt="App Dashboard Preview" width="600">
+  <img src="assets/Second.png" alt="App Dashboard Preview" width="600">
 </p>
 <p align="center">
-  <img src="assets/3.png" alt="App Dashboard Preview" width="600">
+  <img src="assets/Third.png" alt="App Dashboard Preview" width="600">
 </p>
 
 ## 📌 Table of Contents
