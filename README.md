@@ -1,6 +1,7 @@
 # 🔴 AI-Powered Surveillance System for Anomaly Detection
 
 > A real-time AI surveillance system that automatically detects violent activity from live camera feeds, saves incident evidence to the cloud, and instantly alerts security teams via email and SMS.
+Deployed Project Link: [AI-Powered Surveillance System for Anomaly detectiton](https://ai-powered-surveillance-system.netlify.app)
 
 ---
 
