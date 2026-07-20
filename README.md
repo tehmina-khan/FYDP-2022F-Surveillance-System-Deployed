@@ -168,8 +168,7 @@ Make sure you have the following installed:
 
 **1. Clone the repository**
 ```bash
-git clone https://github.com/yourusername/cctv-sentinel.git
-cd cctv-sentinel
+git clone https://github.com/tehmina-khan/FYDP-2022F-Surveillance-System-Deployed.git
 ```
 
 **2. Install backend dependencies**
@@ -180,27 +179,21 @@ npm install
 
 **3. Install frontend dependencies**
 ```bash
-cd ../client
+cd client
 npm install
 ```
 
 **4. Install Python dependencies**
 ```bash
-cd ..
+cd YDP-2022F-Surveillance-System-Deployed
 pip install torch torchvision opencv-python numpy requests
 ```
 
 **5. Download the model**
 
-The model file (`best_model.pth`) is stored via Git LFS due to its size (>100MB).
-
-```bash
-git lfs pull
+Download the model file manually from Google Drive: (Please reach out to me for model file link) and place it in the project root:
 ```
-
-Or download it manually from Google Drive and place it in the project root:
-```
-cctv-sentinel/
+YDP-2022F-Surveillance-System-Deployed/
 └── best_model.pth
 ```
 
@@ -210,35 +203,7 @@ cctv-sentinel/
 
 Create a `.env` file inside the `server/` folder:
 
-```env
-# Server
-PORT=5000
-
-# MongoDB
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/violence_detection
-
-# JWT
-JWT_SECRET=your_super_secret_jwt_key
-
-# Resend (Email)
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxx
-EMAIL_FROM=alerts@yourdomain.com
-EMAIL_TO=admin@yourdomain.com
-
-# Twilio (SMS)
-TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-TWILIO_FROM=+1234567890
-TWILIO_TO=+923001234567
-
-# Cloudinary
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=123456789012345
-CLOUDINARY_API_SECRET=your_api_secret
-
-# Frontend URL (for email links)
-FRONTEND_URL=http://localhost:3000
-```
+The .env.sample is given inside the server folder, take that for reference
 
 Create a `.env` file inside the `client/` folder:
 
@@ -289,10 +254,10 @@ CCTV Started | Press Q to quit
 ## Project Structure
 
 ```
-cctv-sentinel/
+FYDP-2022F-Surveillance-System-Deployed/
 │
 ├── detection.py                 # Python ML detection script
-├── best_model.pth               # Trained R3D-18 model (via Git LFS)
+├── best_model.pth               # Trained TimeSformer model 
 ├── incidents/                   # Local incident files (auto-created)
 │
 ├── server/                      # Node.js backend
@@ -380,31 +345,12 @@ cctv-sentinel/
 
 ---
 
-## ML Model
-
-| Property | Value |
-|---|---|
-| Architecture | R3D-18 (3D ResNet-18) |
-| Input shape | `[1, 3, 24, 112, 112]` |
-| Output classes | NonViolence, Violence |
-| Frame buffer | 24 frames sliding window |
-| Image size | 112 × 112 px |
-| Normalization | Divide by 255 (no ImageNet norm) |
-| Motion threshold | 0.02 (skip idle frames) |
-| High motion threshold | 0.08 (eligible for violence label) |
-| Violence threshold | 0.60 confidence minimum |
-| Prediction smoothing | 8-clip rolling average |
-| Alert confirmation | 2 consecutive violent clips |
-| Alert cooldown | 5 seconds between alerts |
-
----
-
 ## Deployment
 
 | Service | Platform | URL |
-|---|---|---|
+
 | Frontend | Netlify | https://ai-powered-surveillance-system.netlify.app |
-| Backend | Railway | https://your-backend.railway.app |
+| Backend | Railway | ------------ |
 | Database | MongoDB Atlas | Cloud hosted |
 | Media Storage | Cloudinary | Cloud hosted |
 | ML Script | Local machine / Lab PC | Runs locally |
@@ -428,12 +374,11 @@ cctv-sentinel/
 
 ## Team
 
-> *(Add your team members here)*
-
-| Name | Role |
-|---|---|
-| | |
-| | |
+| Name | Role | Contributions |
+|------|------|---------------|
+| [Tehmina Khan](https://github.com/tehmina-khan) | Group Leader | Data collection and preprocessing, trained TimeSformer variants, built and deployed the web application |
+| [Humaima Riaz](https://github.com/HumaimaRiaz47) | Team Member | Data collection and preprocessing, trained CNN variants |
+| [Alishba Jawaid](https://github.com/Alishba1325) | Team Member | Data collection and preprocessing, data analysis, initial UI design for the web application |
 
 ---
 
