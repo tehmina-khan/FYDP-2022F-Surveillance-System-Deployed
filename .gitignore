@@ -33,7 +33,7 @@ uploads/
 *.avi
 *.mp4
 *.jpg
-*.png
+*png
 
 # IMPORTANT LINKS
 Important-Links.docx
